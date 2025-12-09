@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <fstream>
 
+#ifdef _WIN32
 #include <Windows.h>
 #include <Wininet.h>
 #include <WinSock2.h>
@@ -70,4 +71,5 @@ namespace coingecko_api {
     float get_bnb_usdt_price();
     float get_matic_usdt_price();
 }
+
 
