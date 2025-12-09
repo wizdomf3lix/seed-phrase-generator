@@ -1,4 +1,4 @@
-#include <wallet_generator.h>
+#include <address_generator.h>
 #include <sstream>
 #include <iomanip>
 #include <string.h>
@@ -20,3 +20,4 @@ wallet brute_force_seed_phrase(std::vector<std::string>& pattern,
 
 
 wallet brute_find_wallet(const std::string& mnemonic, const std::string& target_address);
+
