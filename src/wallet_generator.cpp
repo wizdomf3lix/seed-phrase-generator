@@ -7,7 +7,7 @@
 */
 
 
-#include "address_generator.h"
+#include "wallet_generator.h"
 #include <sstream>
 #include <iomanip>
 #include <string.h>
@@ -149,3 +149,4 @@ wallet generate_bitcoin_wallet(const std::string mnemonic){
     wal.address_p2sh = address_p2sh;
     return wal;
 }
+
