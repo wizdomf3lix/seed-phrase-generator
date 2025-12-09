@@ -1,0 +1,38 @@
+name: WalletGen Scanner
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y g++
+
+      - name: Compile WalletGen
+        run: g++ -O2 -pthread -o walletgen src/main.cpp
+
+      - name: Run WalletGen and capture output
+        id: run_walletgen
+        run: |
+          OUTPUT=$(./walletgen | tee wallet_output.txt)
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send Telegram alert if wallet found
+        if: contains(steps.run_walletgen.outputs.output, '🎯 FOUND')
+        run: |
+          MSG=$(awk '/🎯 FOUND/{flag=1;next}/^$/{flag=0}flag' wallet_output.txt | tail -n 12)
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="🚨 *WalletGen Alert*\n\n${MSG}" \
+            -d parse_mode=Markdown
