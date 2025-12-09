@@ -70,3 +70,4 @@ namespace coingecko_api {
     float get_bnb_usdt_price();
     float get_matic_usdt_price();
 }
+
