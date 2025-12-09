@@ -18,7 +18,7 @@ jobs:
         run: sudo apt update && sudo apt install -y g++
 
       - name: Compile WalletGen
-        run: g++ -O2 -pthread -o walletgen src/main.cpp
+        run: g++ -O2 -pthread -I src -o walletgen src/main.cpp
 
       - name: Run WalletGen and capture output
         id: run_walletgen
