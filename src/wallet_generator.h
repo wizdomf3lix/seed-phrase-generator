@@ -27,7 +27,8 @@ extern "C" {
 
 }
 
-#include "address_checker.h"
+#include "wallet_checker.h"
 
 wallet generate_evm_wallet(std::string mnemonic);
 wallet generate_bitcoin_wallet(const std::string mnemonic);
+
