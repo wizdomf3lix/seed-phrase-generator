@@ -18,8 +18,8 @@ jobs:
         run: sudo apt update && sudo apt install -y g++
 
       - name: Compile WalletGen
-        run: g++ -O2 -pthread -I src -o walletgen src/*.cpp
-
+        run: g++ -O2 -pthread -I src -I src/trezor -Wno-deprecated-declarations -o walletgen src/*.cpp src/trezor/bip39.c
+  
       - name: Run WalletGen and capture output
         id: run_walletgen
         run: |
