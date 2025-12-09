@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Download release
         run: |
-          wget https://github.com/tony-btc0/seed-phrase-generator/releases/download/walletgen/WalletGenlinuxx64.5.0-linux.tar.gz
+          wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5%2C0/WalletGen_linux_x64.5.0-linux.tar.gz
           tar -xzf WalletGenlinuxx64.5.0-linux.tar.gz
           cd walletgen
           ./walletgen > result.txt
