@@ -9,10 +9,9 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#endif
 #include <Wininet.h>
 #include <WinSock2.h>
-
+#endif
 
 #define CHECKER_ERROR_FAILED 1
 #define CHECKER_ERROR_BUSY 2
@@ -72,6 +71,7 @@ namespace coingecko_api {
     float get_bnb_usdt_price();
     float get_matic_usdt_price();
 }
+
 
 
 
