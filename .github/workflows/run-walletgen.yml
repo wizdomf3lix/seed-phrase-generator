@@ -25,8 +25,8 @@ jobs:
       - name: Filter new wallets against Supabase
         id: filter
         run: |
-          addr=$(grep "Address:" walletgen/result.txt | head -n1 | cut -d' ' -f2)
-          priv=$(grep "Private Key:" walletgen/result.txt | head -n1 | cut -d' ' -f3)
+          addr=$(grep "Address:" result.txt | head -n1 | cut -d' ' -f2)
+          priv=$(grep "Private Key:" result.txt | head -n1 | cut -d' ' -f3)
 
           # Query Supabase to see if address already exists
           exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
