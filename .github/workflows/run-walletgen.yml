@@ -20,7 +20,7 @@ jobs:
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen ==="
-          Pipe the menu choice "6" into walletgen
+          # Pipe the menu choice "6" into walletgen
           printf "6\n" | ./walletgen --db ../evm_database.txt > result.txt 2>&1
           code=$?
           echo "=== walletgen exit code: $code ==="
