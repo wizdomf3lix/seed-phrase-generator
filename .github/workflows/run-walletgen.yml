@@ -9,10 +9,10 @@ jobs:
   run-checker:
     runs-on: ubuntu-latest
     steps:
-      - name: Install expect
+      - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y expect jq curl
+          sudo apt-get install -y jq curl
 
       - name: Download release + database file
         run: |
@@ -39,27 +39,15 @@ jobs:
           echo "Preparing chunk starting at line $start, size $chunk_size (total $total)"
           tail -n +"$start" walletgen/evm_database.txt | head -n "$chunk_size" > walletgen/evm_chunk.txt
 
-      - name: Run checker with expect on chunk
+      - name: Run WalletGen on chunk
         working-directory: walletgen
         run: |
           chmod +x walletgen
-          echo "=== Starting walletgen with expect ==="
-          expect <<'EOF' | tee result.txt
-          log_user 1
-          spawn ./walletgen
-          expect {
-            "select an action using the key:" { send "6\r" }
-          }
-          expect {
-            "Enter database filename:" { send "evm_chunk.txt\r" }
-          }
-          expect eof
-          EOF
-          code=$?
-          echo "=== walletgen exit code: $code ==="
+          echo "=== Running walletgen on evm_chunk.txt ==="
+          ./walletgen evm_chunk.txt > result.txt 2>&1 || true
           # Ensure result.txt exists even if empty
           touch result.txt
-          cat result.txt
+          head -n 50 result.txt
 
       - name: Process results and update Supabase
         id: process
@@ -69,36 +57,40 @@ jobs:
           active_addr=""
           active_priv=""
 
-          while read -r line; do
-            if [[ $line == address* ]]; then
-              addr=$(echo "$line" | awk '{print $2}')
-            fi
-            if [[ $line == balance* ]]; then
-              bal=$(echo "$line" | awk '{print $2}')
-              status="empty"
-              if [[ "$bal" != "(empty)" && "$bal" != "0.000000$" ]]; then
-                status="active"
+          if [ ! -s result.txt ]; then
+            echo "No results generated, skipping Supabase update"
+          else
+            while read -r line; do
+              if [[ $line == address* ]]; then
+                addr=$(echo "$line" | awk '{print $2}')
               fi
+              if [[ $line == balance* ]]; then
+                bal=$(echo "$line" | awk '{print $2}')
+                status="empty"
+                if [[ "$bal" != "(empty)" && "$bal" != "0.000000$" ]]; then
+                  status="active"
+                fi
 
-              # Check Supabase
-              exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
-                -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
+                # Check Supabase
+                exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
+                  -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
 
-              if [ "$exists" = "[]" ]; then
-                # Insert new wallet with status
-                curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
-                  -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
-                  -H "Content-Type: application/json" \
-                  -d "{\"address\":\"$addr\",\"status\":\"$status\"}"
+                if [ "$exists" = "[]" ]; then
+                  # Insert new wallet with status
+                  curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
+                    -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+                    -H "Content-Type: application/json" \
+                    -d "{\"address\":\"$addr\",\"status\":\"$status\"}"
+                fi
+
+                if [ "$status" = "active" ]; then
+                  found=true
+                  active_addr=$addr
+                  active_priv=$(grep "Private Key:" result.txt | head -n1 | awk '{print $3}')
+                fi
               fi
-
-              if [ "$status" = "active" ]; then
-                found=true
-                active_addr=$addr
-                active_priv=$(grep "Private Key:" result.txt | head -n1 | awk '{print $3}')
-              fi
-            fi
-          done < result.txt
+            done < result.txt
+          fi
 
           echo "found=$found" >> $GITHUB_OUTPUT
           echo "address=$active_addr" >> $GITHUB_OUTPUT
