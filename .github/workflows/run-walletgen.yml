@@ -21,7 +21,8 @@ jobs:
           chmod +x walletgen
           echo "=== Starting walletgen ==="
           ./walletgen --db ../evm_database.txt > result.txt 2>&1
-          echo "=== walletgen exit code: $? ==="
+          code=$?
+          echo "=== walletgen exit code: $code ==="
           echo "=== Checker Output ==="
           if [ -s result.txt ]; then
             cat result.txt
