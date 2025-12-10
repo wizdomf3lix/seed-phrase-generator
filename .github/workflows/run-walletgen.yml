@@ -20,7 +20,6 @@ jobs:
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen ==="
-          set -x   # enable shell debug
           ./walletgen --db ../evm_database.txt > result.txt 2>&1
           echo "=== walletgen exit code: $? ==="
           echo "=== Checker Output ==="
