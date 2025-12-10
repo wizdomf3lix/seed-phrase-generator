@@ -18,8 +18,10 @@ jobs:
       - name: Run checker
         working-directory: walletgen
         run: |
+          ls -l
           chmod +x walletgen
-          ./walletgen --db ../evm_database.txt > result.txt
+          ./walletgen --db ../evm_database.txt > result.txt 2>&1
+          echo "=== Checker Output ==="
           cat result.txt
 
       - name: Filter new wallets against Supabase
@@ -27,6 +29,11 @@ jobs:
         run: |
           addr=$(grep "Address:" result.txt | head -n1 | cut -d' ' -f2)
           priv=$(grep "Private Key:" result.txt | head -n1 | cut -d' ' -f3)
+
+          if [ -z "$addr" ]; then
+            echo "found=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
           # Query Supabase to see if address already exists
           exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
