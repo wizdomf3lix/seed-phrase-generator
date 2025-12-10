@@ -39,14 +39,24 @@ jobs:
           echo "Preparing chunk starting at line $start, size $chunk_size (total $total)"
           tail -n +"$start" walletgen/evm_database.txt | head -n "$chunk_size" > walletgen/evm_chunk.txt
 
-      - name: Run WalletGen on chunk
+      - name: Run WalletGen on chunk with progress
         working-directory: walletgen
         run: |
           chmod +x walletgen
           echo "=== Running walletgen on evm_chunk.txt ==="
-          ./walletgen evm_chunk.txt > result.txt 2>&1 || true
+          # Run WalletGen with timeout and background
+          timeout 30m ./walletgen evm_chunk.txt > result.txt 2>&1 &
+          pid=$!
+          # Print progress every 5 minutes (line count only)
+          while kill -0 $pid 2>/dev/null; do
+            sleep 300
+            lines=$(wc -l < result.txt)
+            echo "Progress: $lines lines written to result.txt so far..."
+          done
+          wait $pid || true
           # Ensure result.txt exists even if empty
           touch result.txt
+          echo "=== WalletGen finished, final line count: $(wc -l < result.txt) ==="
           head -n 50 result.txt
 
       - name: Process results and update Supabase
@@ -71,7 +81,7 @@ jobs:
                   status="active"
                 fi
 
-                # Check Supabase
+                # Check Supabase for duplicates
                 exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
                   -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
 
