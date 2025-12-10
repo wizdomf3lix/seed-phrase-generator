@@ -50,6 +50,9 @@ jobs:
           expect {
             "select an action using the key:" { send "6\r" }
           }
+          expect {
+            "Enter database filename:" { send "evm_chunk.txt\r" }
+          }
           expect eof
           EOF
           code=$?
