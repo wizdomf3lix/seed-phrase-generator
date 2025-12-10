@@ -21,6 +21,11 @@ jobs:
           wget https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/evm_database.txt -O evm_database.txt
           mv evm_database.txt walletgen/
 
+      - name: Verify database file
+        run: |
+          echo "=== Database line count ==="
+          wc -l walletgen/evm_database.txt
+
       - name: Run checker with expect
         working-directory: walletgen
         run: |
