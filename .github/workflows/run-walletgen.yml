@@ -18,8 +18,15 @@ jobs:
         run: |
           wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5%2C0/WalletGen_linux_x64.5.0-linux.tar.gz
           tar -xzf WalletGen_linux_x64.5.0-linux.tar.gz
-          curl -L https://raw.githubusercontent.com/mnadamod/walletgens/main/evm_database.txt -o evm_database.txt
-          mv evm_database.txt walletgen/
+          # Download database file
+          curl -L https://raw.githubusercontent.com/mnadamod/walletgens/main/evm_database.txt -o walletgen/evm_database.txt
+
+      - name: Verify database file
+        run: |
+          echo "=== Verifying database file ==="
+          ls -lh walletgen/evm_database.txt || true
+          head -n 5 walletgen/evm_database.txt || true
+          wc -l walletgen/evm_database.txt || true
 
       - name: Get last index from Supabase
         id: index
@@ -33,11 +40,16 @@ jobs:
 
       - name: Prepare chunk of database
         run: |
+          total=$(wc -l < walletgen/evm_database.txt)
+          if [ "$total" -eq 0 ]; then
+            echo "Database file is empty, aborting run."
+            exit 1
+          fi
           start=${{ steps.index.outputs.last_index }}
           chunk_size=100000
-          total=$(wc -l < walletgen/evm_database.txt)
           echo "Preparing chunk starting at line $start, size $chunk_size (total $total)"
           tail -n +"$start" walletgen/evm_database.txt | head -n "$chunk_size" > walletgen/evm_chunk.txt
+          echo "Chunk prepared with $(wc -l < walletgen/evm_chunk.txt) lines"
 
       - name: Run checker with expect on chunk
         working-directory: walletgen
