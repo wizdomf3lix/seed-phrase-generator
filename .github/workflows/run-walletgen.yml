@@ -54,10 +54,13 @@ jobs:
           EOF
           code=$?
           echo "=== walletgen exit code: $code ==="
+          # Ensure result.txt exists even if empty
+          touch result.txt
           cat result.txt
 
       - name: Process results and update Supabase
         id: process
+        working-directory: walletgen
         run: |
           found=false
           active_addr=""
