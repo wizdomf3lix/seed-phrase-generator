@@ -1,9 +1,9 @@
 name: Run Wallet Checker
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:        # manual trigger
   schedule:
-    - cron: "*/10 * * * *"   # run every 10 minutes
+    - cron: "*/10 * * * *"  # run every 10 minutes
 
 jobs:
   run-checker:
@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Download release + database file
         run: |
-          wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5%2C0/WalletGen_linux_x64.5.0-linux.tar.gz
+          wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5.0/WalletGen_linux_x64.5.0-linux.tar.gz
           tar -xzf WalletGen_linux_x64.5.0-linux.tar.gz
           wget https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/evm_database.txt -O evm_database.txt
 
       - name: Run checker
+        working-directory: walletgen
         run: |
-          cd walletgen
           chmod +x walletgen
           ./walletgen --db ../evm_database.txt > result.txt
           cat result.txt
@@ -28,7 +28,7 @@ jobs:
           addr=$(grep "Address:" walletgen/result.txt | head -n1 | cut -d' ' -f2)
           priv=$(grep "Private Key:" walletgen/result.txt | head -n1 | cut -d' ' -f3)
 
-          # Check if address already exists in Supabase
+          # Query Supabase to see if address already exists
           exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
             -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
 
@@ -37,7 +37,7 @@ jobs:
             echo "address=$addr" >> $GITHUB_OUTPUT
             echo "private=$priv" >> $GITHUB_OUTPUT
 
-            # Insert new wallet
+            # Insert new wallet into Supabase
             curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
               -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
               -H "Content-Type: application/json" \
