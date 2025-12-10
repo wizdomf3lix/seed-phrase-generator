@@ -44,9 +44,11 @@ jobs:
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen with expect ==="
+          # Ensure chunk file is present in working directory
+          ls -lh evm_chunk.txt
           expect <<'EOF' | tee result.txt
           log_user 1
-          spawn ./walletgen evm_chunk.txt
+          spawn ./walletgen
           expect {
             "select an action using the key:" { send "6\r" }
           }
