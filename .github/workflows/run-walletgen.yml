@@ -18,7 +18,6 @@ jobs:
       - name: Run checker
         working-directory: walletgen
         run: |
-          ls -l
           chmod +x walletgen
           ./walletgen --db ../evm_database.txt > result.txt 2>&1
           echo "=== Checker Output ==="
