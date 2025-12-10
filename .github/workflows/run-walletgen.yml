@@ -9,10 +9,10 @@ jobs:
   run-checker:
     runs-on: ubuntu-latest
     steps:
-      - name: Install tools
+      - name: Install expect
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq curl
+          sudo apt-get install -y expect jq curl
 
       - name: Download release + database file
         run: |
@@ -39,24 +39,32 @@ jobs:
           echo "Preparing chunk starting at line $start, size $chunk_size (total $total)"
           tail -n +"$start" walletgen/evm_database.txt | head -n "$chunk_size" > walletgen/evm_chunk.txt
 
-      - name: Run WalletGen on chunk with progress
+      - name: Run checker with expect on chunk
         working-directory: walletgen
         run: |
           chmod +x walletgen
-          echo "=== Running walletgen on evm_chunk.txt ==="
-          # Run WalletGen with timeout and background
-          timeout 30m ./walletgen evm_chunk.txt > result.txt 2>&1 &
-          pid=$!
-          # Print progress every 5 minutes (line count only)
-          while kill -0 $pid 2>/dev/null; do
-            sleep 300
-            lines=$(wc -l < result.txt)
-            echo "Progress: $lines lines written to result.txt so far..."
-          done
-          wait $pid || true
+          echo "=== Starting walletgen with expect ==="
+          # Run WalletGen interactively with expect
+          expect <<'EOF' | tee result.txt
+          log_user 1
+          spawn ./walletgen
+          expect {
+            "select an action using the key:" { send "6\r" }
+          }
+          expect {
+            "Enter database filename:" { send "evm_chunk.txt\r" }
+          }
+          expect {
+            "Press ENTER to start checking:" { send "\r" }
+          }
+          expect eof
+          EOF
+          code=$?
+          echo "=== walletgen exit code: $code ==="
           # Ensure result.txt exists even if empty
           touch result.txt
           echo "=== WalletGen finished, final line count: $(wc -l < result.txt) ==="
+          # Show only the first 50 lines to avoid overwhelming logs
           head -n 50 result.txt
 
       - name: Process results and update Supabase
