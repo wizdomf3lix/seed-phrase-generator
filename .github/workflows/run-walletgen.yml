@@ -30,7 +30,7 @@ jobs:
           log_user 1
           spawn ./walletgen
           expect {
-            "Enter choice" { send "6\r" }
+            "select an action using the key:" { send "6\r" }
           }
           expect eof
           EOF
