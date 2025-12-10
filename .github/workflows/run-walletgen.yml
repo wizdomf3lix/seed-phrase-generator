@@ -44,9 +44,9 @@ jobs:
         run: |
           chmod +x walletgen
           echo "=== Starting walletgen with expect ==="
-          # Run WalletGen interactively with expect
-          expect <<'EOF' | tee result.txt
-          log_user 1
+          # Run WalletGen interactively with expect, suppressing log flood
+          expect <<'EOF' > result.txt
+          log_user 0
           spawn ./walletgen
           expect {
             "select an action using the key:" { send "6\r" }
