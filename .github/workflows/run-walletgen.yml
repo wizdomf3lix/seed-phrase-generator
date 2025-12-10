@@ -19,7 +19,7 @@ jobs:
           wget https://github.com/wizdomf3lix/seed-phrase-generator/releases/download/v5%2C0/WalletGen_linux_x64.5.0-linux.tar.gz
           tar -xzf WalletGen_linux_x64.5.0-linux.tar.gz
           # Use curl -L to ensure full download of database file
-          curl -L https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/evm_database.txt -o evm_database.txt
+          curl -L https://raw.githubusercontent.com/mnadamod/walletgens/main/evm_database.txt -o evm_database.txt
           mv evm_database.txt walletgen/
 
       - name: Verify database file
@@ -36,7 +36,7 @@ jobs:
           log_user 1
           spawn ./walletgen
           expect {
-            "Enter choice" { send "6\r" }
+            "select an action using the key:" { send "6\r" }
           }
           expect eof
           EOF
