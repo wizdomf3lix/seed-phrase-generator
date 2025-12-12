@@ -1,6 +1,6 @@
 name: WalletGen Scanner
 
-on:
+on
   workflow_dispatch:        # manual trigger
   schedule:
     - cron: "*/10 * * * *"  # run every 10 minutes
